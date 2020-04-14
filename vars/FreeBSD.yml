@@ -1,3 +1,8 @@
 ---
-__sensu_go_backend_db_dir: /var/db/sensu_go_backend
-__sensu_go_backend_conf_dir: /usr/local/etc/sensu_go_backend
+__sensu_go_backend_user: sensu
+__sensu_go_backend_group: sensu
+__sensu_go_backend_package: sysutils/sensu-go
+__sensu_go_backend_state_dir: /var/db/sensu/sensu-backend
+__sensu_go_backend_cache_dir: /var/cache/sensu/sensu-backend
+__sensu_go_backend_service: sensu-backend
+__sensu_go_backend_conf_dir: /usr/local/etc

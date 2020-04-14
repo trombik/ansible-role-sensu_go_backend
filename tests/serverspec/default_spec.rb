@@ -1,19 +1,23 @@
 require "spec_helper"
 require "serverspec"
 
-package = "sensu_go_backend"
-service = "sensu_go_backend"
-config  = "/etc/sensu_go_backend/sensu_go_backend.conf"
-user    = "sensu_go_backend"
-group   = "sensu_go_backend"
-ports   = [PORTS]
-log_dir = "/var/log/sensu_go_backend"
-db_dir  = "/var/lib/sensu_go_backend"
+package = nil
+service = "sensu-backend"
+config  = "/etc/sensu-backend.yml"
+user    = "sensu"
+group   = "sensu"
+ports   = [3000, 8080]
+log_dir = "/var/log/sensu"
+db_dir  = "/var/lib/sensu/sensu-backend"
+cache_dir = "/var/cache/sensu/sensu-backend"
+state_dir = "/var/lib/sensu/sensu-backend"
 
 case os[:family]
 when "freebsd"
-  config = "/usr/local/etc/sensu_go_backend.conf"
-  db_dir = "/var/db/sensu_go_backend"
+  package = "sysutils/sensu-go"
+  config = "/usr/local/etc/sensu-backend.yml"
+  db_dir = "/var/db/sensu/sensu-backend"
+  state_dir = "/var/db/sensu/sensu-backend"
 end
 
 describe package(package) do
@@ -22,7 +26,9 @@ end
 
 describe file(config) do
   it { should be_file }
-  its(:content) { should match Regexp.escape("sensu_go_backend") }
+  its(:content) { should match Regexp.escape("# Managed by ansible") }
+  its(:content_as_yaml) { should include("state-dir" => state_dir) }
+  its(:content_as_yaml) { should include("cache-dir" => cache_dir) }
 end
 
 describe file(log_dir) do
@@ -39,9 +45,16 @@ describe file(db_dir) do
   it { should be_grouped_into group }
 end
 
+describe file(cache_dir) do
+  it { should exist }
+  it { should be_mode 755 }
+  it { should be_owned_by user }
+  it { should be_grouped_into group }
+end
+
 case os[:family]
 when "freebsd"
-  describe file("/etc/rc.conf.d/sensu_go_backend") do
+  describe file("/etc/rc.conf.d/sensu_backend") do
     it { should be_file }
   end
 end
