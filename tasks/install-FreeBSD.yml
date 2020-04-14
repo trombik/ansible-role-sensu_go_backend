@@ -1,0 +1,6 @@
+---
+
+- name: Install sensu_go_backend
+  pkgng:
+    name: sensu_go_backend
+    state: present
