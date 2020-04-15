@@ -1,8 +1,17 @@
-# trombik.`sensu_go_backend`
+# `trombik.sensu_go_backend`
 
 [![Build Status](https://travis-ci.com/trombik/ansible-role-sensu_go_backend.svg?branch=master)](https://travis-ci.com/trombik/ansible-role-sensu_go_backend)
 
 `ansible` role for `sensu-go` version of `sensu-backend`.
+
+## Notes for FreeBSD users
+
+As of this writing (2020/04/16), the official FreeBSD ports tree does not have
+the latest version of `sensu-go`. The available version of the port does not
+install `sensu-backend`. You have to fix the port yourself, or install my port
+from
+`[freebsd-ports-sensu-go](https://github.com/trombik/freebsd-ports-sensu-go)`,
+and place the package somewhere.
 
 # Requirements
 
