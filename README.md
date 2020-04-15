@@ -23,9 +23,17 @@ None
 | `sensu_go_backend_conf_dir` | path to base directory of `sensu_go_backend_conf_file` | `{{ __sensu_go_backend_conf_dir }}` |
 | `sensu_go_backend_conf_file` | path to `sensu-backend.yml` | `{{ sensu_go_backend_conf_dir }}/sensu-backend.yml` |
 | `sensu_go_backend_config` | content of `sensu-backend.yml` | `""` |
-| `sensu_go_backend_flags` | TBW | `""` |
+| `sensu_go_backend_flags` | see below | `""` |
 | `sensu_go_backend_admin_account` | name of admin account | `""` |
 | `sensu_go_backend_admin_password` | password of admin account | `""` |
+
+## `sensu_go_backend_flags`
+
+This variable is used to configure startup options for the service.
+
+### FreeBSD
+
+`sensu_go_backend_flags` is the content of `/etc/rc.conf.d/sensu_backend`.
 
 ## FreeBSD
 
