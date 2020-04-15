@@ -23,7 +23,8 @@
       FreeBSD:
         enabled: "false"
         state: present
-      # enable newer package repository
+      # enable my own package repository, where the latest package is
+      # available
       FreeBSD_devel:
         enabled: "true"
         state: present

@@ -46,6 +46,40 @@ None
 # Example Playbook
 
 ```yaml
+---
+- hosts: localhost
+  roles:
+    - role: trombik.freebsd_pkg_repo
+    - role: ansible-role-sensu_go_backend
+  vars:
+    sensu_go_backend_admin_account: admin
+    sensu_go_backend_admin_password: PassWord
+    sensu_go_backend_config:
+      state-dir: "{{ sensu_go_backend_state_dir }}"
+      cache-dir: "{{ sensu_go_backend_cache_dir }}"
+      log-level: debug
+      agent-host: "[::]"
+      api-listen-address: "[::]:8080"
+      dashboard-host: "[::]"
+      dashboard-port: 3000
+
+    os_sensu_go_backend_flags:
+      FreeBSD: ""
+    sensu_go_backend_flags: "{{ os_sensu_go_backend_flags[ansible_os_family] }}"
+    freebsd_pkg_repo:
+      # disable the default package repository
+      FreeBSD:
+        enabled: "false"
+        state: present
+      # enable my own package repository, where the latest package is
+      # available
+      FreeBSD_devel:
+        enabled: "true"
+        state: present
+        url: "http://pkg.i.trombik.org/{{ ansible_distribution_version | regex_replace('\\.', '') }}{{ansible_architecture}}-master-default/"
+        mirror_type: http
+        signature_type: none
+        priority: 100
 ```
 
 # License
