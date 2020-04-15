@@ -29,11 +29,20 @@ None
 
 ## `sensu_go_backend_flags`
 
-This variable is used to configure startup options for the service.
+This variable is used to configure startup options for the service. What it
+does depends on platform.
 
 ### FreeBSD
 
 `sensu_go_backend_flags` is the content of `/etc/rc.conf.d/sensu_backend`.
+
+### Debian
+
+`sensu_go_backend_flags` is the content of `/etc/default/sensu-backend`.
+
+### RedHat
+
+`sensu_go_backend_flags` is the content of `/etc/sysconfig/sensu-backend`.
 
 ## Debian
 
@@ -63,6 +72,20 @@ This variable is used to configure startup options for the service.
 | `__sensu_go_backend_conf_dir` | `/usr/local/etc` |
 | `__sensu_go_backend_conf_file` | `{{ __sensu_go_backend_conf_dir }}/sensu-backend.yml` |
 
+## RedHat
+
+| Variable | Default |
+|----------|---------|
+| `__sensu_go_backend_user` | `sensu` |
+| `__sensu_go_backend_group` | `sensu` |
+| `__sensu_go_backend_package` | `sensu-go-backend` |
+| `__sensu_go_backend_extra_packages` | `["sensu-go-cli"]` |
+| `__sensu_go_backend_state_dir` | `/var/lib/sensu/sensu-backend` |
+| `__sensu_go_backend_cache_dir` | `/var/cache/sensu/sensu-backend` |
+| `__sensu_go_backend_service` | `sensu-backend` |
+| `__sensu_go_backend_conf_dir` | `/etc/sensu` |
+| `__sensu_go_backend_conf_file` | `{{ __sensu_go_backend_conf_dir }}/backend.yml` |
+
 # Dependencies
 
 None
@@ -77,6 +100,8 @@ None
       when: ansible_os_family == 'FreeBSD'
     - role: trombik.apt_repo
       when: ansible_os_family == 'Debian'
+    - role: trombik.redhat_repo
+      when: ansible_os_family == 'RedHat'
     - role: ansible-role-sensu_go_backend
   vars:
     sensu_go_backend_admin_account: admin
@@ -93,6 +118,7 @@ None
     os_sensu_go_backend_flags:
       FreeBSD: ""
       Debian: ""
+      RedHat: ""
     sensu_go_backend_flags: "{{ os_sensu_go_backend_flags[ansible_os_family] }}"
     freebsd_pkg_repo:
       # disable the default package repository
@@ -115,6 +141,21 @@ None
     apt_repo_to_add:
       - deb https://packagecloud.io/sensu/stable/ubuntu/ bionic main
     apt_repo_enable_apt_transport_https: True
+
+    redhat_repo_extra_packages:
+      - epel-release
+
+    # see https://packagecloud.io/install/repositories/sensu/stable/config_file.repo?os=centos&dist=7&source=script
+    redhat_repo:
+      sensu:
+        baseurl: "https://packagecloud.io/sensu/stable/el/{{ ansible_distribution_major_version }}/$basearch"
+        # Package sensu-go-cli-5.19.1-10989.x86_64.rpm is not signed
+        gpgcheck: no
+        enabled: yes
+      epel:
+        mirrorlist: "http://mirrors.fedoraproject.org/mirrorlist?repo=epel-{{ ansible_distribution_major_version }}&arch={{ ansible_architecture }}"
+        gpgcheck: yes
+        enabled: yes
 ```
 
 # License

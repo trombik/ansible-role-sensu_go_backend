@@ -17,6 +17,9 @@ default_group = "root"
 extra_packages = []
 
 case os[:family]
+when "redhat"
+  package = "sensu-go-backend"
+  extra_packages = ["sensu-go-cli"]
 when "ubuntu"
   package = "sensu-go-backend"
   extra_packages = ["sensu-go-cli"]
@@ -69,6 +72,15 @@ end
 case os[:family]
 when "freebsd"
   describe file("/etc/rc.conf.d/sensu_backend") do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by "root" }
+    it { should be_grouped_into default_group }
+    it { should be_mode 644 }
+    its(:content) { should match(/Managed by ansible/) }
+  end
+when "redhat"
+  describe file("/etc/sysconfig/sensu-backend") do
     it { should exist }
     it { should be_file }
     it { should be_owned_by "root" }
