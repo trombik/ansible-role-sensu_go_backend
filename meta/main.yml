@@ -12,3 +12,4 @@ galaxy_info:
         - 12.1
   galaxy_tags:
     - sensu_go_backend
+    - sensu

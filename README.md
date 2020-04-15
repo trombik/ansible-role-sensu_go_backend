@@ -8,9 +8,34 @@ None
 
 # Role Variables
 
-| variable | description | default |
+| Variable | Description | Default |
 |----------|-------------|---------|
+| `sensu_go_backend_user` | user of `sensu-backend` | `{{ __sensu_go_backend_user }}` |
+| `sensu_go_backend_group` | group of `sensu-backend` | `{{ __sensu_go_backend_group }}` |
+| `sensu_go_backend_package` | package name of `sensu-backend` | `{{ __sensu_go_backend_package }}` |
+| `sensu_go_backend_extra_packages` | list of extra packages to install | `[]` |
+| `sensu_go_backend_log_dir` | path to log directory | `/var/log/sensu` |
+| `sensu_go_backend_state_dir` | path to `state-dir` | `{{ __sensu_go_backend_state_dir }}` |
+| `sensu_go_backend_cache_dir` | path of `cache-dir` | `{{ __sensu_go_backend_cache_dir }}` |
+| `sensu_go_backend_service` | service name of `sensu-backend` | `{{ __sensu_go_backend_service }}` |
+| `sensu_go_backend_conf_dir` | path to base directory of `sensu_go_backend_conf_file` | `{{ __sensu_go_backend_conf_dir }}` |
+| `sensu_go_backend_conf_file` | path to `sensu-backend.yml` | `{{ sensu_go_backend_conf_dir }}/sensu-backend.yml` |
+| `sensu_go_backend_config` | content of `sensu-backend.yml` | `""` |
+| `sensu_go_backend_flags` | TBW | `""` |
+| `sensu_go_backend_admin_account` | name of admin account | `""` |
+| `sensu_go_backend_admin_password` | password of admin account | `""` |
 
+## FreeBSD
+
+| Variable | Default |
+|----------|---------|
+| `__sensu_go_backend_user` | `sensu` |
+| `__sensu_go_backend_group` | `sensu` |
+| `__sensu_go_backend_package` | `sysutils/sensu-go` |
+| `__sensu_go_backend_state_dir` | `/var/db/sensu/sensu-backend` |
+| `__sensu_go_backend_cache_dir` | `/var/cache/sensu/sensu-backend` |
+| `__sensu_go_backend_service` | `sensu-backend` |
+| `__sensu_go_backend_conf_dir` | `/usr/local/etc` |
 
 # Dependencies
 
