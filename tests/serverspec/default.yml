@@ -4,6 +4,8 @@
     - role: trombik.freebsd_pkg_repo
     - role: ansible-role-sensu_go_backend
   vars:
+    sensu_go_backend_admin_account: admin
+    sensu_go_backend_admin_password: PassWord
     sensu_go_backend_config:
       state-dir: "{{ sensu_go_backend_state_dir }}"
       cache-dir: "{{ sensu_go_backend_cache_dir }}"

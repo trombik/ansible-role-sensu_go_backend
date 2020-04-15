@@ -11,6 +11,8 @@ log_dir = "/var/log/sensu"
 db_dir  = "/var/lib/sensu/sensu-backend"
 cache_dir = "/var/cache/sensu/sensu-backend"
 state_dir = "/var/lib/sensu/sensu-backend"
+admin_user = "admin"
+admin_password = "PassWord"
 
 case os[:family]
 when "freebsd"
@@ -68,4 +70,13 @@ ports.each do |p|
   describe port(p) do
     it { should be_listening }
   end
+end
+
+describe command("sensuctl configure -n --url http://127.0.0.1:8080 --username #{Shellwords.escape(admin_user)} --password #{Shellwords.escape(admin_password)} --format yaml") do
+  before(:all) do
+    Specinfra.backend.run_command("rm -rf /root/.config/sensu")
+  end
+  its(:exit_status) { should eq 0 }
+  its(:stderr) { should match(/Using Basic Auth in HTTP mode is not secure, use HTTPS/) }
+  its(:stdout) { should eq "" }
 end
