@@ -1,6 +1,8 @@
-# ansible-role-sensu_go_backend
+# trombik.`sensu_go_backend`
 
-A brief description of the role goes here.
+[![Build Status](https://travis-ci.com/trombik/ansible-role-sensu_go_backend.svg?branch=master)](https://travis-ci.com/trombik/ansible-role-sensu_go_backend)
+
+`ansible` role for `sensu-go` version of `sensu-backend`.
 
 # Requirements
 
