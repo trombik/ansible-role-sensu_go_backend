@@ -24,11 +24,12 @@ when "ubuntu"
   package = "sensu-go-backend"
   extra_packages = ["sensu-go-cli"]
 when "freebsd"
-  package = "sysutils/sensu-go"
+  package = "sysutils/sensu-go-backend"
   config = "/usr/local/etc/sensu-backend.yml"
   db_dir = "/var/db/sensu/sensu-backend"
   state_dir = "/var/db/sensu/sensu-backend"
   default_group = "wheel"
+  extra_packages = ["sysutils/sensu-go-cli"]
 end
 
 describe package(package) do

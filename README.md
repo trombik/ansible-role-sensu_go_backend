@@ -60,7 +60,7 @@ does depends on platform.
 | `__sensu_go_backend_user` | `sensu` |
 | `__sensu_go_backend_group` | `sensu` |
 | `__sensu_go_backend_package` | `sensu-go-backend` |
-| `__sensu_go_backend_extra_packages` | `["sensu-go-cli"]` |
+| `__sensu_go_backend_extra_packages` | `[]` |
 | `__sensu_go_backend_state_dir` | `/var/lib/sensu/sensu-backend` |
 | `__sensu_go_backend_cache_dir` | `/var/cache/sensu/sensu-backend` |
 | `__sensu_go_backend_service` | `sensu-backend` |
@@ -73,7 +73,7 @@ does depends on platform.
 |----------|---------|
 | `__sensu_go_backend_user` | `sensu` |
 | `__sensu_go_backend_group` | `sensu` |
-| `__sensu_go_backend_package` | `sysutils/sensu-go` |
+| `__sensu_go_backend_package` | `sysutils/sensu-go-backend` |
 | `__sensu_go_backend_extra_packages` | `[]` |
 | `__sensu_go_backend_state_dir` | `/var/db/sensu/sensu-backend` |
 | `__sensu_go_backend_cache_dir` | `/var/cache/sensu/sensu-backend` |
@@ -88,7 +88,7 @@ does depends on platform.
 | `__sensu_go_backend_user` | `sensu` |
 | `__sensu_go_backend_group` | `sensu` |
 | `__sensu_go_backend_package` | `sensu-go-backend` |
-| `__sensu_go_backend_extra_packages` | `["sensu-go-cli"]` |
+| `__sensu_go_backend_extra_packages` | `[]` |
 | `__sensu_go_backend_state_dir` | `/var/lib/sensu/sensu-backend` |
 | `__sensu_go_backend_cache_dir` | `/var/cache/sensu/sensu-backend` |
 | `__sensu_go_backend_service` | `sensu-backend` |
