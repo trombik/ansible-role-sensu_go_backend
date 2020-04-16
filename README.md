@@ -112,7 +112,29 @@ None
     - role: trombik.redhat_repo
       when: ansible_os_family == 'RedHat'
     - role: ansible-role-sensu_go_backend
+
+    # XXX sensu_go_agent must run *after* sensu_go_backend
+    # because the FreeBSD port installs agent and backend, the handler to
+    # configure admin account and password does not run if your run
+    # sensu_go_agent before sensu_go_backend. to fix this, the port must be
+    # fixed so that you can install them from different packages. this does
+    # not happen on other platform where backend and agent have their own
+    # package.
+    - role: trombik.sensu_go_agent
   vars:
+
+    # __________________________________________agent
+    sensu_go_agent_config:
+      backend-url: ws://localhost:8081
+      cache-dir: "{{ sensu_go_agent_cache_dir }}"
+
+    os_sensu_go_agent_flags:
+      FreeBSD: ""
+      Debian: ""
+      RedHat: ""
+    sensu_go_agent_flags: "{{ os_sensu_go_agent_flags[ansible_os_family] }}"
+
+    # __________________________________________backend
     sensu_go_backend_admin_account: admin
     sensu_go_backend_admin_password: P@ssw0rd!
     sensu_go_backend_config:
@@ -130,10 +152,12 @@ None
       RedHat: ""
     sensu_go_backend_flags: "{{ os_sensu_go_backend_flags[ansible_os_family] }}"
     freebsd_pkg_repo:
+
       # disable the default package repository
       FreeBSD:
         enabled: "false"
         state: present
+
       # enable my own package repository, where the latest package is
       # available
       FreeBSD_devel:
@@ -158,6 +182,7 @@ None
     redhat_repo:
       sensu:
         baseurl: "https://packagecloud.io/sensu/stable/el/{{ ansible_distribution_major_version }}/$basearch"
+
         # Package sensu-go-cli-5.19.1-10989.x86_64.rpm is not signed
         gpgcheck: no
         enabled: yes
