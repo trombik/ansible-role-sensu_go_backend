@@ -43,3 +43,22 @@
   service:
     name: "{{ sensu_go_backend_service }}"
     state: started
+
+- name: Include flush_handlers.yml
+  # XXX workaround `[WARNING]: flush_handlers task does not support when
+  # conditional`
+  # https://github.com/ansible/ansible/issues/41313
+  include_tasks: flush_handlers.yml
+  when:
+    - sensu_go_backend_flush_handlers
+
+- name: Configure sensu_go_backend_assets
+  sensu.sensu_go.asset:
+    annotations: "{{ item['asset']['annotations'] | default(omit) }}"
+    auth: "{{ item['asset']['auth'] | default(omit) }}"
+    builds: "{{ item['asset']['builds'] | default(omit) }}"
+    labels: "{{ item['asset']['labels'] | default(omit) }}"
+    name: "{{ item['asset']['name'] }}"
+    namespace: "{{ item['asset']['namespace'] | default(omit) }}"
+    state: "{{ item['asset']['state'] | default(omit) }}"
+  with_items: "{{ sensu_go_backend_assets }}"
