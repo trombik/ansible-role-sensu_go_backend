@@ -60,7 +60,7 @@ script:
   # be transfered to third-party, encrypted files cannot be decrypted in travis
   # CI environment. Skip syntax check when it is a private repo.
   #
-  - "if [ ! -f .private_repo ]; then ansible-playbook tests/travisci/tests.yml -i tests/travisci/inventory --syntax-check; fi"
+  - "if [ ! -f .private_repo ]; then ANSIBLE_COLLECTIONS_PATHS=${PWD}/collections ansible-playbook tests/travisci/tests.yml -i tests/travisci/inventory --syntax-check; fi"
 
   # download the QA scripts
   - git clone https://github.com/trombik/qansible.git
