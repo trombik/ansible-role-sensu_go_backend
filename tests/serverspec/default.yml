@@ -10,6 +10,15 @@
 
     - role: trombik.sensu_go_agent
     - role: ansible-role-sensu_go_backend
+  pre_tasks:
+    # XXX when this file does not exist, curl fails to load CA certificate
+    # XXX fix this in the box image
+    - name: /etc/sysconfig/64bit_strstr_via_64bit_strstr_sse2_unaligned
+      file:
+        path: /etc/sysconfig/64bit_strstr_via_64bit_strstr_sse2_unaligned
+        state: touch
+      when: ansible_os_family == 'RedHat'
+      changed_when: false
   vars:
 
     # __________________________________________agent
