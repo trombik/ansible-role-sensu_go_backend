@@ -16,6 +16,8 @@
     sensu_go_agent_config:
       backend-url: ws://localhost:8081
       cache-dir: "{{ sensu_go_agent_cache_dir }}"
+      subscriptions:
+        - system
 
     os_sensu_go_agent_flags:
       FreeBSD: ""
@@ -45,7 +47,16 @@
       Debian: ""
       RedHat: ""
     sensu_go_backend_flags: "{{ os_sensu_go_backend_flags[ansible_os_family] }}"
-
+    sensu_go_backend_checks:
+      - check:
+          name: check
+          command: sensu-go-uptime-check -w 72h -c 168h
+          subscriptions:
+            - system
+          interval: 60
+          publish: yes
+          runtime_assets:
+            - sensu-go-uptime-check
     sensu_go_backend_assets:
       - asset:
           name: sensu-go-uptime-check
