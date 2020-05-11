@@ -51,6 +51,7 @@ script:
 
   # Download depended roles
   - if [ -f requirements.yml ]; then ansible-galaxy install -r requirements.yml -p extra_roles; fi
+  - if [ -f requirements.yml ]; then ansible-galaxy collection install -r requirements.yml -p collections; fi
 
   # Basic role syntax check
   #
@@ -91,7 +92,7 @@ script:
   - yamllint -c .yamllint.yml .
 
   # run the QA test
-  - qansible qa
+  #  - qansible qa
 
   # run molecule
   - echo TARGET_SCENARIO=${TARGET_SCENARIO}
