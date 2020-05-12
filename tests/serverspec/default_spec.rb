@@ -127,6 +127,13 @@ describe command "sensuctl namespace list --format json" do
   its(:stdout_as_json) { should include(include("name" => "server")) }
 end
 
+describe command "sensuctl role list --namespace server --format json" do
+  its(:exit_status) { should eq 0 }
+  its(:stderr) { should eq "" }
+  its(:stdout_as_json) { should include(include("metadata" => include("name" => "readonly"))) }
+  its(:stdout_as_json) { should include(include("metadata" => include("namespace" => "server"))) }
+end
+
 describe command "sensuctl asset list --namespace server --format json" do
   its(:exit_status) { should eq 0 }
   its(:stderr) { should eq "" }

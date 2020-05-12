@@ -17,3 +17,4 @@ sensu_go_backend_flush_handlers: yes
 sensu_go_backend_assets: []
 sensu_go_backend_checks: []
 sensu_go_backend_namespaces: []
+sensu_go_backend_roles: []

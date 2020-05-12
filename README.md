@@ -56,6 +56,7 @@ None
 | `sensu_go_backend_assets` | list of `sensu-go` `asset` (see below) | `[]` |
 | `sensu_go_backend_checks` | list of `sense-go` `check` (see below) | `[]` |
 | `sensu_go_backend_namespaces` | list of `sensu-go` `namespace` (see below) | `[]` |
+| `sensu_go_backend_roles` | list of `sensu-go` `role` (see below) | `[]` |
 
 ## `sensu_go_backend_assets`
 
@@ -81,6 +82,13 @@ This is a list of dict. The dict requires the following keys and values.
 |-----|-------------|------------|
 | `check` | a dict of arguments passed to `namespace` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
 
+## `sensu_go_backend_role`
+
+This is a list of dict. The dict requires the following keys and values.
+
+| Key | Description | Mandatory? |
+|-----|-------------|------------|
+| `role` | a dict of arguments passed to `role` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
 
 ## `sensu_go_backend_flags`
 

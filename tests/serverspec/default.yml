@@ -51,6 +51,26 @@
     sensu_go_backend_namespaces:
       - namespace:
           name: server
+    sensu_go_backend_roles:
+      - role:
+          name: readonly
+          namespace: server
+          rules:
+            - verbs:
+                - list
+              resources:
+                - assets
+                - checks
+                - entities
+                - events
+                - filters
+                - handlers
+                - hooks
+                - mutators
+                - rolebindings
+                - roles
+                - searches
+                - silenced
     sensu_go_backend_checks:
       - check:
           name: check
