@@ -57,6 +57,8 @@ None
 | `sensu_go_backend_checks` | list of `sense-go` `check` (see below) | `[]` |
 | `sensu_go_backend_namespaces` | list of `sensu-go` `namespace` (see below) | `[]` |
 | `sensu_go_backend_roles` | list of `sensu-go` `role` (see below) | `[]` |
+| `sensu_go_backend_users` | list of `sensu-go` `user` (see below) | `[]` |
+| `sensu_go_backend_users_ignore_changed` | if true, ignore `changed=true` of `user` resource. you should not set this to true unless you have [a valid reason](https://github.com/sensu/sensu-go-ansible/issues/183) to do so. | `no` |
 
 ## `sensu_go_backend_assets`
 
@@ -65,6 +67,14 @@ This is a list of dict. The dict requires the following keys and values.
 | Key | Description | Mandatory? |
 |-----|-------------|------------|
 | `asset` | a dict of arguments passed to `asset` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
+
+## `sensu_go_backend_users`
+
+This is a list of dict. The dict requires the following keys and values.
+
+| Key | Description | Mandatory? |
+|-----|-------------|------------|
+| `user` | a dict of arguments passed to `user` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
 
 ## `sensu_go_backend_checks`
 

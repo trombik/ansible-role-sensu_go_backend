@@ -68,6 +68,17 @@
     state: "{{ item['role']['state'] | default(omit) }}"
   with_items: "{{ sensu_go_backend_roles }}"
 
+- name: Configure sensu_go_backend_users
+  sensu.sensu_go.user:
+    auth: "{{ item['user']['auth'] | default(omit) }}"
+    groups: "{{ item['user']['group'] | default(omit) }}"
+    name: "{{ item['user']['name'] }}"
+    password: "{{ item['user']['password'] | default(omit) }}"
+    state: "{{ item['user']['state'] | default(omit) }}"
+  with_items: "{{ sensu_go_backend_users }}"
+  register: __sensu_go_backend_users_result
+  changed_when: __sensu_go_backend_users_result['changed'] and not sensu_go_backend_users_ignore_changed
+
 - name: Configure sensu_go_backend_assets
   sensu.sensu_go.asset:
     annotations: "{{ item['asset']['annotations'] | default(omit) }}"
