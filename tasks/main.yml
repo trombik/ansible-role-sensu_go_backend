@@ -52,6 +52,13 @@
   when:
     - sensu_go_backend_flush_handlers
 
+- name: Configure sensu_go_backend_namespaces
+  sensu.sensu_go.namespace:
+    auth: "{{ item['namespace']['auth'] | default(omit) }}"
+    name: "{{ item['namespace']['name'] }}"
+    state: "{{ item['namespace']['state'] | default(omit) }}"
+  with_items: "{{ sensu_go_backend_namespaces }}"
+
 - name: Configure sensu_go_backend_assets
   sensu.sensu_go.asset:
     annotations: "{{ item['asset']['annotations'] | default(omit) }}"

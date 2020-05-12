@@ -120,13 +120,20 @@ describe command("sensuctl configure -n --url http://127.0.0.1:8080 --username #
   its(:stdout) { should eq "" }
 end
 
-describe command "sensuctl asset list --format json" do
+describe command "sensuctl namespace list --format json" do
+  its(:exit_status) { should eq 0 }
+  its(:stderr) { should eq "" }
+  its(:stdout_as_json) { should include(include("name" => "default")) }
+  its(:stdout_as_json) { should include(include("name" => "server")) }
+end
+
+describe command "sensuctl asset list --namespace server --format json" do
   its(:exit_status) { should eq 0 }
   its(:stderr) { should eq "" }
   its(:stdout_as_json) { should include(include("metadata" => include("name" => "sensu-go-uptime-check"))) }
 end
 
-describe command "sensuctl check list --format json" do
+describe command "sensuctl check list --namespace server --format json" do
   its(:exit_status) { should eq 0 }
   its(:stderr) { should eq "" }
   its(:stdout_as_json) { should include(include("command" => "sensu-go-uptime-check -w 72h -c 168h")) }

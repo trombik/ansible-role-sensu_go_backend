@@ -47,6 +47,10 @@
       Debian: ""
       RedHat: ""
     sensu_go_backend_flags: "{{ os_sensu_go_backend_flags[ansible_os_family] }}"
+
+    sensu_go_backend_namespaces:
+      - namespace:
+          name: server
     sensu_go_backend_checks:
       - check:
           name: check
@@ -57,9 +61,11 @@
           publish: yes
           runtime_assets:
             - sensu-go-uptime-check
+          namespace: server
     sensu_go_backend_assets:
       - asset:
           name: sensu-go-uptime-check
+          namespace: server
           auth:
             user: "{{ sensu_go_backend_admin_account }}"
             password: "{{ sensu_go_backend_admin_password }}"

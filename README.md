@@ -55,11 +55,7 @@ None
 | `sensu_go_backend_flush_handlers` | if true, run `meta` `ansible` action during the play | `true` |
 | `sensu_go_backend_assets` | list of `sensu-go` `asset` (see below) | `[]` |
 | `sensu_go_backend_checks` | list of `sense-go` `check` (see below) | `[]` |
-
-## `sensu_go_backend_flags`
-
-This variable is used to configure startup options for the service. What it
-does depends on platform.
+| `sensu_go_backend_namespaces` | list of `sensu-go` `namespace` (see below) | `[]` |
 
 ## `sensu_go_backend_assets`
 
@@ -77,6 +73,19 @@ This is a list of dict. The dict requires the following keys and values.
 |-----|-------------|------------|
 | `check` | a dict of arguments passed to `check` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
 
+## `sensu_go_backend_namespaces`
+
+This is a list of dict. The dict requires the following keys and values.
+
+| Key | Description | Mandatory? |
+|-----|-------------|------------|
+| `check` | a dict of arguments passed to `namespace` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
+
+
+## `sensu_go_backend_flags`
+
+This variable is used to configure startup options for the service. What it
+does depends on platform.
 
 ### FreeBSD
 
