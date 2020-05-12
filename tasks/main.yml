@@ -79,6 +79,18 @@
   register: __sensu_go_backend_users_result
   changed_when: __sensu_go_backend_users_result['changed'] and not sensu_go_backend_users_ignore_changed
 
+- name: Configure sensu_go_backend_role_bindings
+  sensu.sensu_go.role_binding:
+    auth: "{{ item['role_binding']['auth'] | default(omit) }}"
+    cluster_role: "{{ item['role_binding']['cluster_role'] | default(omit) }}"
+    groups: "{{ item['role_binding']['groups'] | default(omit) }}"
+    name: "{{ item['role_binding']['name'] }}"
+    namespace: "{{ item['role_binding']['namespace'] | default(omit) }}"
+    role: "{{ item['role_binding']['role'] | default(omit) }}"
+    state: "{{ item['role_binding']['state'] | default(omit) }}"
+    users: "{{ item['role_binding']['users'] | default(omit) }}"
+  with_items: "{{ sensu_go_backend_role_bindings }}"
+
 - name: Configure sensu_go_backend_assets
   sensu.sensu_go.asset:
     annotations: "{{ item['asset']['annotations'] | default(omit) }}"

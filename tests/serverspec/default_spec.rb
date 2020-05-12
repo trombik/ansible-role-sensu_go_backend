@@ -137,7 +137,15 @@ end
 describe command "sensuctl user list --format json" do
   its(:exit_status) { should eq 0 }
   its(:stderr) { should eq "" }
-  its(:stdout_as_json) { should include(include("metadata" => include("name" => "readonly-user"))) }
+  its(:stdout_as_json) { should include(include("username" => "readonly-user")) }
+end
+
+describe command "sensuctl role-binding list --format json" do
+  its(:exit_status) { should eq 0 }
+  its(:stderr) { should eq "" }
+  its(:stdout_as_json) { should include(include("metadata" => include("name" => "readonly"))) }
+  its(:stdout_as_json) { should include(include("role_ref" => include("name" => "readonly"))) }
+  its(:stdout_as_json) { should include(include("subjects" => include(include("name" => "readonly-user")))) }
 end
 
 describe command "sensuctl asset list --namespace server --format json" do

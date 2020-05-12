@@ -78,6 +78,14 @@
           name: readonly-user
           password: PassWord
           groups: []
+    sensu_go_backend_role_bindings:
+      - role_binding:
+          name: readonly
+          role: readonly
+          groups: []
+          users:
+            - readonly-user
+
     sensu_go_backend_checks:
       - check:
           name: check
