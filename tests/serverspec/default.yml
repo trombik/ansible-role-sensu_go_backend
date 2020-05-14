@@ -122,6 +122,14 @@
           name: dev-null
           command: cat
           namespace: server
+
+    sensu_go_backend_socket_handlers:
+      - socket_handler:
+          name: tcp_handler
+          namespace: server
+          host: 127.0.0.1
+          type: udp
+          port: 53
     # __________________________________________package
     freebsd_pkg_repo:
 

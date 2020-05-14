@@ -62,6 +62,7 @@ None
 | `sensu_go_backend_role_bindings` | list of `sensu-go` `role_binding` (see below) | `[]` |
 | `sensu_go_backend_bonsai_assets` | list of `sensu-go` `bonsai_asset` (see below) | `[]` |
 | `sensu_go_backend_pipe_handlers` | list of `sensu-go` `pipe_handler` (see below) | `[]` |
+| `sensu_go_backend_socket_handlers` | list of `sensu-go` `socket_handler` (see below) | `[]` |
 
 ## `sensu_go_backend_assets`
 
@@ -126,6 +127,14 @@ This is a list of dict. The dict requires the following keys and values.
 | Key | Description | Mandatory? |
 |-----|-------------|------------|
 | `pipe_handler` | a dict of arguments passed to `pipe_handler` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
+
+## `sensu_go_backend_socket_handlers`
+
+This is a list of dict. The dict requires the following keys and values.
+
+| Key | Description | Mandatory? |
+|-----|-------------|------------|
+| `socket_handler` | a dict of arguments passed to `socket_handler` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
 
 ## `sensu_go_backend_flags`
 

@@ -154,3 +154,19 @@
     runtime_assets: "{{ item['pipe_handler']['runtime_assets'] | default(omit) }}"
     state: "{{ item['pipe_handler']['state'] | default(omit) }}"
   with_items: "{{ sensu_go_backend_pipe_handlers }}"
+
+- name: Configure sensu_go_backend_socket_handlers
+  sensu.sensu_go.socket_handler:
+    annotations: "{{ item['socket_handler']['annotations'] | default(omit) }}"
+    auth: "{{ item['socket_handler']['auth'] | default(omit) }}"
+    filters: "{{ item['socket_handler']['filters'] | default(omit) }}"
+    host: "{{ item['socket_handler']['host'] | default(omit) }}"
+    labels: "{{ item['socket_handler']['labels'] | default(omit) }}"
+    mutator: "{{ item['socket_handler']['mutator'] | default(omit) }}"
+    name: "{{ item['socket_handler']['name'] }}"
+    namespace: "{{ item['socket_handler']['namespace'] | default(omit) }}"
+    port: "{{ item['socket_handler']['port'] | default(omit) }}"
+    state: "{{ item['socket_handler']['state'] | default(omit) }}"
+    timeout: "{{ item['socket_handler']['timeout'] | default(omit) }}"
+    type: "{{ item['socket_handler']['type'] | default(omit) }}"
+  with_items: "{{ sensu_go_backend_socket_handlers }}"

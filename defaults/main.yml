@@ -22,5 +22,6 @@ sensu_go_backend_users: []
 sensu_go_backend_role_bindings: []
 sensu_go_backend_bonsai_assets: []
 sensu_go_backend_pipe_handlers: []
+sensu_go_backend_socket_handlers: []
 
 sensu_go_backend_users_ignore_changed: no

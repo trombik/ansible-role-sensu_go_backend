@@ -185,3 +185,9 @@ describe command "sensuctl handler list --namespace server --format json" do
   its(:stderr) { should eq "" }
   its(:stdout_as_json) { should include(include("metadata" => include("name" => "dev-null"))) }
 end
+
+describe command "sensuctl handler list --namespace server --format json" do
+  its(:exit_status) { should eq 0 }
+  its(:stderr) { should eq "" }
+  its(:stdout_as_json) { should include(include("metadata" => include("name" => "tcp_handler"))) }
+end
