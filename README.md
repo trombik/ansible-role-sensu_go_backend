@@ -61,6 +61,7 @@ None
 | `sensu_go_backend_users_ignore_changed` | if true, ignore `changed=true` of `user` resource. you should not set this to true unless you have [a valid reason](https://github.com/sensu/sensu-go-ansible/issues/183) to do so. | `no` |
 | `sensu_go_backend_role_bindings` | list of `sensu-go` `role_binding` (see below) | `[]` |
 | `sensu_go_backend_bonsai_assets` | list of `sensu-go` `bonsai_asset` (see below) | `[]` |
+| `sensu_go_backend_pipe_handlers` | list of `sensu-go` `pipe_handler` (see below) | `[]` |
 
 ## `sensu_go_backend_assets`
 
@@ -117,6 +118,14 @@ This is a list of dict. The dict requires the following keys and values.
 | Key | Description | Mandatory? |
 |-----|-------------|------------|
 | `bonsai_asset` | a dict of arguments passed to `bonsai_asset` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
+
+## `sensu_go_backend_pipe_handlers`
+
+This is a list of dict. The dict requires the following keys and values.
+
+| Key | Description | Mandatory? |
+|-----|-------------|------------|
+| `pipe_handler` | a dict of arguments passed to `pipe_handler` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
 
 ## `sensu_go_backend_flags`
 

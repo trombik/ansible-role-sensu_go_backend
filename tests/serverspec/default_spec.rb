@@ -116,7 +116,13 @@ describe command("sensuctl configure -n --url http://127.0.0.1:8080 --username #
     Specinfra.backend.run_command("rm -rf /root/.config/sensu")
   end
   its(:exit_status) { should eq 0 }
-  its(:stderr) { should eq "" }
+  case os[:family]
+  when "freebsd"
+    its(:stderr) { should match(/Using Basic Auth in HTTP mode is not secure/) }
+  else
+    its(:stderr) { should eq "" }
+  end
+
   its(:stdout) { should eq "" }
 end
 
@@ -172,4 +178,10 @@ describe command "sensuctl asset info --namespace server asachs01/sensu-go-uptim
   its(:exit_status) { should eq 0 }
   its(:stderr) { should eq "" }
   its(:stdout_as_json) { should include("metadata" => include("name" => "asachs01/sensu-go-uptime-check")) }
+end
+
+describe command "sensuctl handler list --namespace server --format json" do
+  its(:exit_status) { should eq 0 }
+  its(:stderr) { should eq "" }
+  its(:stdout_as_json) { should include(include("metadata" => include("name" => "dev-null"))) }
 end

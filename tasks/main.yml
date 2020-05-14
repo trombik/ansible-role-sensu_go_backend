@@ -139,3 +139,18 @@
     rename: "{{ item['bonsai_asset']['rename'] | default(omit) }}"
     version: "{{ item['bonsai_asset']['version'] }}"
   with_items: "{{ sensu_go_backend_bonsai_assets }}"
+
+- name: Configure sensu_go_backend_pipe_handlers
+  sensu.sensu_go.pipe_handler:
+    annotations: "{{ item['pipe_handler']['annotations'] | default(omit) }}"
+    auth: "{{ item['pipe_handler']['auth'] | default(omit) }}"
+    command: "{{ item['pipe_handler']['command'] | default(omit) }}"
+    env_vars: "{{ item['pipe_handler']['env_vars'] | default(omit) }}"
+    filters: "{{ item['pipe_handler']['filters'] | default(omit) }}"
+    labels: "{{ item['pipe_handler']['labels'] | default(omit) }}"
+    mutator: "{{ item['pipe_handler']['mutator'] | default(omit) }}"
+    name: "{{ item['pipe_handler']['name'] }}"
+    namespace: "{{ item['pipe_handler']['namespace'] | default(omit) }}"
+    runtime_assets: "{{ item['pipe_handler']['runtime_assets'] | default(omit) }}"
+    state: "{{ item['pipe_handler']['state'] | default(omit) }}"
+  with_items: "{{ sensu_go_backend_pipe_handlers }}"
