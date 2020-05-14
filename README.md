@@ -65,6 +65,7 @@ None
 | `sensu_go_backend_socket_handlers` | list of `sensu-go` `socket_handler` (see below) | `[]` |
 | `sensu_go_backend_tessen` | list of `sensu-go` `tessen` (see below) | `[]` |
 | `sensu_go_backend_hooks` | list of `sensu-go` `hook` (see below) | `[]` |
+| `sensu_go_backend_filters` | list of `sensu-go` `filter` (see below) | `[]` |
 
 ## `sensu_go_backend_assets`
 
@@ -155,6 +156,14 @@ This is a list of dict. The dict requires the following keys and values.
 | Key | Description | Mandatory? |
 |-----|-------------|------------|
 | `hook` | a dict of arguments passed to `hook` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
+
+## `sensu_go_backend_filters`
+
+This is a list of dict. The dict requires the following keys and values.
+
+| Key | Description | Mandatory? |
+|-----|-------------|------------|
+| `filter` | a dict of arguments passed to `filter` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
 
 ## `sensu_go_backend_flags`
 

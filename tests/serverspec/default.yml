@@ -139,6 +139,12 @@
           command: shutdown -r now
           timeout: 600
           stdin: false
+    sensu_go_backend_filters:
+      - filter:
+          name: ignore_devel_environment
+          action: deny
+          expressions:
+            - event.entity.labels['environment'] == 'devel'
     # __________________________________________package
     freebsd_pkg_repo:
 

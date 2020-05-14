@@ -59,6 +59,19 @@
     state: "{{ item['namespace']['state'] | default(omit) }}"
   with_items: "{{ sensu_go_backend_namespaces }}"
 
+- name: Configure sensu_go_backend_filters
+  sensu.sensu_go.filter:
+    action: "{{ item['filter']['action'] | default(omit) }}"
+    annotations: "{{ item['filter']['annotations'] | default(omit) }}"
+    auth: "{{ item['filter']['auth'] | default(omit) }}"
+    expressions: "{{ item['filter']['expressions'] | default(omit) }}"
+    labels: "{{ item['filter']['labels'] | default(omit) }}"
+    name: "{{ item['filter']['name'] }}"
+    namespace: "{{ item['filter']['namespace'] | default(omit) }}"
+    runtime_assets: "{{ item['filter']['runtime_assets'] | default(omit) }}"
+    state: "{{ item['filter']['state'] | default(omit) }}"
+  with_items: "{{ sensu_go_backend_filters }}"
+
 - name: Configure sensu_go_backend_roles
   sensu.sensu_go.role:
     auth: "{{ item['role']['auth'] | default(omit) }}"

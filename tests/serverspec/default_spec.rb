@@ -203,3 +203,9 @@ describe command "sensuctl hook list --format json" do
   its(:stderr) { should eq "" }
   its(:stdout_as_json) { should include(include("metadata" => include("name" => "reboot"))) }
 end
+
+describe command "sensuctl filter list --format json" do
+  its(:exit_status) { should eq 0 }
+  its(:stderr) { should eq "" }
+  its(:stdout_as_json) { should include(include("metadata" => include("name" => "ignore_devel_environment"))) }
+end
