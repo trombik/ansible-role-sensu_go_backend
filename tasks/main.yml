@@ -170,3 +170,9 @@
     timeout: "{{ item['socket_handler']['timeout'] | default(omit) }}"
     type: "{{ item['socket_handler']['type'] | default(omit) }}"
   with_items: "{{ sensu_go_backend_socket_handlers }}"
+
+- name: Configure sensu_go_backend_tessen
+  sensu.sensu_go.tessen:
+    auth: "{{ item['tessen']['auth'] | default(omit) }}"
+    state: "{{ item['tessen']['state'] }}"
+  with_items: "{{ sensu_go_backend_tessen }}"

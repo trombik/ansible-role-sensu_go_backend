@@ -130,6 +130,9 @@
           host: 127.0.0.1
           type: udp
           port: 53
+    sensu_go_backend_tessen:
+      - tessen:
+          state: disabled
     # __________________________________________package
     freebsd_pkg_repo:
 
