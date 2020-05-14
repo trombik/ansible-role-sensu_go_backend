@@ -111,6 +111,12 @@
                 - entity.system.arch == 'amd64'
               url: https://github.com/asachs01/sensu-go-uptime-check/releases/download/1.0.2/sensu-go-uptime-check_1.0.2_freebsd_amd64.tar.gz
 
+    sensu_go_backend_bonsai_assets:
+      - bonsai_asset:
+          name: asachs01/sensu-go-uptime-check
+          namespace: server
+          version: 1.0.2
+
     # __________________________________________package
     freebsd_pkg_repo:
 

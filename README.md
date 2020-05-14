@@ -60,6 +60,7 @@ None
 | `sensu_go_backend_users` | list of `sensu-go` `user` (see below) | `[]` |
 | `sensu_go_backend_users_ignore_changed` | if true, ignore `changed=true` of `user` resource. you should not set this to true unless you have [a valid reason](https://github.com/sensu/sensu-go-ansible/issues/183) to do so. | `no` |
 | `sensu_go_backend_role_bindings` | list of `sensu-go` `role_binding` (see below) | `[]` |
+| `sensu_go_backend_bonsai_assets` | list of `sensu-go` `bonsai_asset` (see below) | `[]` |
 
 ## `sensu_go_backend_assets`
 
@@ -91,7 +92,7 @@ This is a list of dict. The dict requires the following keys and values.
 
 | Key | Description | Mandatory? |
 |-----|-------------|------------|
-| `check` | a dict of arguments passed to `namespace` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
+| `namespace` | a dict of arguments passed to `namespace` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
 
 ## `sensu_go_backend_role`
 
@@ -108,6 +109,14 @@ This is a list of dict. The dict requires the following keys and values.
 | Key | Description | Mandatory? |
 |-----|-------------|------------|
 | `role_binding` | a dict of arguments passed to `role_binding` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
+
+## `sensu_go_backend_bonsai_assets`
+
+This is a list of dict. The dict requires the following keys and values.
+
+| Key | Description | Mandatory? |
+|-----|-------------|------------|
+| `bonsai_asset` | a dict of arguments passed to `bonsai_asset` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
 
 ## `sensu_go_backend_flags`
 

@@ -167,3 +167,9 @@ describe command "sensuctl entity list --format json" do
   its(:stdout_as_json) { should include(include("system" => include("platform" => os[:family] == "redhat" ? "centos" : os[:family]))) }
   its(:stdout_as_json) { should include(include("subscriptions" => include("system"))) }
 end
+
+describe command "sensuctl asset info --namespace server asachs01/sensu-go-uptime-check --format json" do
+  its(:exit_status) { should eq 0 }
+  its(:stderr) { should eq "" }
+  its(:stdout_as_json) { should include("metadata" => include("name" => "asachs01/sensu-go-uptime-check")) }
+end
