@@ -24,5 +24,6 @@ sensu_go_backend_bonsai_assets: []
 sensu_go_backend_pipe_handlers: []
 sensu_go_backend_socket_handlers: []
 sensu_go_backend_tessen: []
+sensu_go_backend_hooks: []
 
 sensu_go_backend_users_ignore_changed: no

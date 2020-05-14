@@ -133,6 +133,12 @@
     sensu_go_backend_tessen:
       - tessen:
           state: disabled
+    sensu_go_backend_hooks:
+      - hook:
+          name: reboot
+          command: shutdown -r now
+          timeout: 600
+          stdin: false
     # __________________________________________package
     freebsd_pkg_repo:
 

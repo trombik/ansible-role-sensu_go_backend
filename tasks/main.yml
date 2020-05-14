@@ -176,3 +176,17 @@
     auth: "{{ item['tessen']['auth'] | default(omit) }}"
     state: "{{ item['tessen']['state'] }}"
   with_items: "{{ sensu_go_backend_tessen }}"
+
+- name: Configure sensu_go_backend_hooks
+  sensu.sensu_go.hook:
+    annotations: "{{ item['hook']['annotations'] | default(omit) }}"
+    auth: "{{ item['hook']['auth'] | default(omit) }}"
+    command: "{{ item['hook']['command'] | default(omit) }}"
+    labels: "{{ item['hook']['labels'] | default(omit) }}"
+    name: "{{ item['hook']['name'] }}"
+    namespace: "{{ item['hook']['namespace'] | default(omit) }}"
+    runtime_assets: "{{ item['hook']['runtime_assets'] | default(omit) }}"
+    state: "{{ item['hook']['state'] | default(omit) }}"
+    stdin: "{{ item['hook']['stdin'] | default(omit) }}"
+    timeout: "{{ item['hook']['timeout'] | default(omit) }}"
+  with_items: "{{ sensu_go_backend_hooks }}"
