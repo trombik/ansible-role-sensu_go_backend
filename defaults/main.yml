@@ -26,5 +26,6 @@ sensu_go_backend_socket_handlers: []
 sensu_go_backend_tessen: []
 sensu_go_backend_hooks: []
 sensu_go_backend_filters: []
+sensu_go_backend_entities: []
 
 sensu_go_backend_users_ignore_changed: no

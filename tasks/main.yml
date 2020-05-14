@@ -203,3 +203,21 @@
     stdin: "{{ item['hook']['stdin'] | default(omit) }}"
     timeout: "{{ item['hook']['timeout'] | default(omit) }}"
   with_items: "{{ sensu_go_backend_hooks }}"
+
+- name: Configure sensu_go_backend_entities
+  sensu.sensu_go.entity:
+    annotations: "{{ item['entity']['annotations'] | default(omit) }}"
+    auth: "{{ item['entity']['auth'] | default(omit) }}"
+    deregister: "{{ item['entity']['deregister'] | default(omit) }}"
+    deregistration_handler: "{{ item['entity']['deregistration_handler'] | default(omit) }}"
+    entity_class: "{{ item['entity']['entity_class'] | default(omit) }}"
+    labels: "{{ item['entity']['labels'] | default(omit) }}"
+    last_seen: "{{ item['entity']['last_seen'] | default(omit) }}"
+    name: "{{ item['entity']['name'] }}"
+    namespace: "{{ item['entity']['namespace'] | default(omit) }}"
+    redact: "{{ item['entity']['redact'] | default(omit) }}"
+    state: "{{ item['entity']['state'] | default(omit) }}"
+    subscriptions: "{{ item['entity']['subscriptions'] | default(omit) }}"
+    system: "{{ item['entity']['system'] | default(omit) }}"
+    user: "{{ item['entity']['user'] | default(omit) }}"
+  with_items: "{{ sensu_go_backend_entities }}"

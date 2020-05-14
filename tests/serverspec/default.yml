@@ -145,6 +145,19 @@
           action: deny
           expressions:
             - event.entity.labels['environment'] == 'devel'
+    sensu_go_backend_entities:
+      - entity:
+          name: sensu-docs
+          labels:
+            url: docs.sensu.io
+          deregister: false
+          entity_class: proxy
+          last_seen: 0
+          subscriptions:
+            - proxy
+          system:
+            network:
+              interfaces: null
     # __________________________________________package
     freebsd_pkg_repo:
 
