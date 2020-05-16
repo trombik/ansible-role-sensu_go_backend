@@ -67,6 +67,8 @@ None
 | `sensu_go_backend_hooks` | list of `sensu-go` `hook` (see below) | `[]` |
 | `sensu_go_backend_filters` | list of `sensu-go` `filter` (see below) | `[]` |
 | `sensu_go_backend_entities` | list of `sensu-go` `entity` (see below) | `[]` |
+| `sensu_go_backend_cluster_roles` | list of `sensu-go` `cluster_role` (see below) | `[]` |
+| `sensu_go_backend_cluster_role_bindings` | list of `sensu-go` `cluster_role_binding` (see below) | `[]` |
 
 ## `sensu_go_backend_assets`
 
@@ -173,6 +175,22 @@ This is a list of dict. The dict requires the following keys and values.
 | Key | Description | Mandatory? |
 |-----|-------------|------------|
 | `entity` | a dict of arguments passed to `entity` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
+
+## `sensu_go_backend_cluster_roles`
+
+This is a list of dict. The dict requires the following keys and values.
+
+| Key | Description | Mandatory? |
+|-----|-------------|------------|
+| `cluster_role` | a dict of arguments passed to `cluster_role` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
+
+## `sensu_go_backend_cluster_role_bindings`
+
+This is a list of dict. The dict requires the following keys and values.
+
+| Key | Description | Mandatory? |
+|-----|-------------|------------|
+| `cluster_role_binding` | a dict of arguments passed to `cluster_role_binding` module in [`sensu-go` `ansible` collection](https://sensu.github.io/sensu-go-ansible/). | yes |
 
 ## `sensu_go_backend_flags`
 
