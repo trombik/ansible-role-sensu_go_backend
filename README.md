@@ -32,7 +32,7 @@ and place the package somewhere.
 
 # Requirements
 
-None
+Ruby must be installed.
 
 # Role Variables
 
@@ -40,6 +40,7 @@ None
 |----------|-------------|---------|
 | `sensu_go_backend_user` | user of `sensu-backend` | `{{ __sensu_go_backend_user }}` |
 | `sensu_go_backend_group` | group of `sensu-backend` | `{{ __sensu_go_backend_group }}` |
+| `sensu_go_backend_home` | home directory of `sensu-backend` | `/home/{{ sensu_go_backend_user }}` |
 | `sensu_go_backend_package` | package name of `sensu-backend` | `{{ __sensu_go_backend_package }}` |
 | `sensu_go_backend_extra_packages` | list of extra packages to install | `{{ __sensu_go_backend_extra_packages }}` |
 | `sensu_go_backend_log_dir` | path to log directory | `/var/log/sensu` |
@@ -71,6 +72,10 @@ None
 | `sensu_go_backend_entities` | list of `sensu-go` `entity` (see below) | `[]` |
 | `sensu_go_backend_cluster_roles` | list of `sensu-go` `cluster_role` (see below) | `[]` |
 | `sensu_go_backend_cluster_role_bindings` | list of `sensu-go` `cluster_role_binding` (see below) | `[]` |
+| `sensu_go_backend_use_embedded_ruby` | if true, install `sensu_go_backend_ruby_plugins` with embedded ruby | `no` |
+| `sensu_go_backend_embedded_ruby_dir` | path to embedded ruby directory | `/opt/sensu-plugins-ruby/embedded` |
+| `sensu_go_backend_embedded_ruby_gem` | path to embedded ruby gem | `{{ sensu_go_backend_embedded_ruby_dir }}/bin/gem` |
+| `sensu_go_backend_ruby_plugins` | list of ruby gem plugins to install | `[]` |
 
 ## `sensu_go_backend_assets`
 
