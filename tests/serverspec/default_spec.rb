@@ -262,3 +262,11 @@ fragments.each do |f|
     its(:content_as_json) { should include("example" => include("name" => f.split(".").first.to_s)) }
   end
 end
+
+describe file "#{conf_dir}/template_file.erb" do
+  it { should exist }
+  it { should be_file }
+  it { should be_owned_by "root" }
+  it { should be_grouped_into default_group }
+  its(:content) { should match(/foo/) }
+end
