@@ -189,6 +189,20 @@
     version: "{{ item['bonsai_asset']['version'] }}"
   with_items: "{{ sensu_go_backend_bonsai_assets }}"
 
+- name: Configure sensu_go_backend_mutators
+  sensu.sensu_go.mutator:
+    annotations: "{{ item['mutator']['annotations'] | default(omit) }}"
+    auth: "{{ item['mutator']['auth'] | default(omit) }}"
+    command: "{{ item['mutator']['command'] | default(omit) }}"
+    env_vars: "{{ item['mutator']['env_vars'] | default(omit) }}"
+    labels: "{{ item['mutator']['labels'] | default(omit) }}"
+    name: "{{ item['mutator']['name'] }}"
+    namespace: "{{ item['mutator']['namespace'] | default(omit) }}"
+    runtime_assets: "{{ item['mutator']['runtime_assets'] | default(omit) }}"
+    state: "{{ item['mutator']['state'] | default(omit) }}"
+    timeout: "{{ item['mutator']['timeout'] | default(omit) }}"
+  with_items: "{{ sensu_go_backend_mutators }}"
+
 - name: Configure sensu_go_backend_filters
   sensu.sensu_go.filter:
     action: "{{ item['filter']['action'] | default(omit) }}"
