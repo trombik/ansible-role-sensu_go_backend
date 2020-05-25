@@ -311,6 +311,14 @@ does depends on platform.
 ```yaml
 ---
 - hosts: localhost
+  pre_tasks:
+    - name: Create sensu group before playing sensu_go_* roles
+      group:
+        name: sensu
+    - name: Create sensu user before playing sensu_go_* roles
+      user:
+        name: sensu
+        group: sensu
   roles:
     - role: trombik.freebsd_pkg_repo
       when: ansible_os_family == 'FreeBSD'
@@ -321,16 +329,19 @@ does depends on platform.
     - role: trombik.language_ruby
       when: ansible_os_family != 'RedHat'
 
+    - role: trombik.cfssl
     - role: trombik.sensu_go_agent
     - role: ansible-role-sensu_go_backend
   vars:
-
     # __________________________________________agent
     sensu_go_agent_config:
-      backend-url: ws://localhost:8081
+      backend-url: ws://127.0.0.1:8081
       cache-dir: "{{ sensu_go_agent_cache_dir }}"
       subscriptions:
         - system
+      # cert-file: "{{ project_cert_file }}"
+      # key-file: "{{ project_key_file }}"
+      trusted-ca-file: "{{ project_ca_cert_file }}"
 
     os_sensu_go_agent_flags:
       FreeBSD: ""
@@ -339,6 +350,11 @@ does depends on platform.
     sensu_go_agent_flags: "{{ os_sensu_go_agent_flags[ansible_os_family] }}"
 
     # __________________________________________backend
+    sensu_go_backend_mutators:
+      - mutator:
+          name: cat
+          command: cat
+
     sensu_go_backend_handler_sets:
       - handler_set:
           name: keepalive
@@ -378,6 +394,11 @@ does depends on platform.
       RedHat:
         - sensu-go-cli
         - sensu-plugins-ruby
+    project_cert_file: "{{ cfssl_certs_dir }}/localhost.pem"
+    project_key_file: "{{ cfssl_certs_dir }}/localhost-key.pem"
+    project_ca_cert_file: "{{ cfssl_ca_root_dir }}/ca.pem"
+    project_https_localhost: https://127.0.0.1
+    project_http_localhost: http://127.0.0.1
     sensu_go_backend_extra_packages: "{{ os_sensu_go_backend_extra_packages[ansible_os_family] }}"
     sensu_go_backend_admin_account: admin
     sensu_go_backend_admin_password: P@ssw0rd!
@@ -386,9 +407,42 @@ does depends on platform.
       cache-dir: "{{ sensu_go_backend_cache_dir }}"
       log-level: debug
       agent-host: "[::]"
-      api-listen-address: "[::]:8080"
+
+      # XXX you cannot use HTTPS because the official ansible module does not
+      # support TLS. see https://github.com/sensu/sensu-go-ansible/issues/190
+      #
+      # XXX it looks like you can enable TLS in agent communication but
+      # disable in API. at least, on Ubuntu, it works that way. it does not on
+      # FreeBSD. there should be something different, but I cannot find out
+      # what. hope backend will log more details in the future.
+      api-url: "{{ project_http_localhost }}:8080"
+      # cert-file: "{{ project_cert_file }}"
+      # key-file: "{{ project_key_file }}"
+      # agent-auth-key-file: "{{ project_key_file }}"
+      # agent-auth-cert-file: "{{ project_cert_file }}"
+      # agent-auth-trusted-ca-file: "{{ project_ca_cert_file }}"
+      trusted-ca-file: "{{ project_ca_cert_file }}"
       dashboard-host: "[::]"
       dashboard-port: 3000
+      dashboard-cert-file: "{{ project_cert_file }}"
+      dashboard-key-file: "{{ project_key_file }}"
+      debug: True
+
+      etcd-cert-file: "{{ project_cert_file }}"
+      etcd-key-file: "{{ project_key_file }}"
+      etcd-trusted-ca-file: "{{ project_ca_cert_file }}"
+      etcd-peer-cert-file: "{{ project_cert_file }}"
+      etcd-peer-key-file: "{{ project_key_file }}"
+      etcd-peer-trusted-ca-file: "{{ project_ca_cert_file }}"
+      etcd-peer-client-cert-auth: False
+      etcd-listen-client-urls: "{{ project_https_localhost }}:2379"
+      etcd-listen-peer-urls: "{{ project_https_localhost }}:2380"
+      etcd-initial-advertise-peer-urls: "{{ project_https_localhost }}:2380"
+      etcd-initial-cluster: "default={{ project_https_localhost }}:2380"
+      etcd-client-cert-auth: False
+      etcd-client-urls: "{{ project_https_localhost }}:2379"
+      etcd-advertise-client-urls: "{{ project_https_localhost }}:2379"
+      insecure-skip-tls-verify: True
 
     os_sensu_go_backend_flags:
       FreeBSD: ""
@@ -550,6 +604,49 @@ does depends on platform.
           system:
             network:
               interfaces: null
+    # __________________________________________cfssl
+    cfssl_certs:
+      - name: localhost.json
+        # Subject Alternative Name, or SAN in short
+        SAN:
+          - 127.0.0.1
+        profile: backend
+        owner: sensu
+        json:
+          CN: localhost
+          hosts:
+            - ""
+          key:
+            algo: rsa
+            size: 2048
+    cfssl_ca_config:
+      signing:
+        default:
+          expiry: 17520h
+          usages:
+            - signing
+            - key encipherment
+            - client auth
+        profiles:
+          backend:
+            expiry: 4320h
+            usages:
+              - signing
+              - key encipherment
+              - server auth
+              - client auth
+          agent:
+            expiry: 4320h
+            usages:
+              - signing
+              - key encipherment
+              - client auth
+
+    cfssl_ca_csr_config:
+      CN: Sensu Test CA
+      key:
+        algo: rsa
+        size: 2048
     # __________________________________________package
     freebsd_pkg_repo:
 
