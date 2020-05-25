@@ -13,7 +13,6 @@ ports_http = [
   2379, 2380, # etcd
   3000        # Web UI
 ]
-ports_unknown = [8081]
 
 describe file certs_dir do
   it { should exist }
