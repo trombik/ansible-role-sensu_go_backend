@@ -88,7 +88,12 @@
       cache-dir: "{{ sensu_go_backend_cache_dir }}"
       log-level: debug
       agent-host: "[::]"
-      api-listen-address: "[::]:8080"
+      # XXX you cannot use HTTPS because the official module does not support
+      # TLS. see https://github.com/sensu/sensu-go-ansible/issues/190
+      # api-url: https://localhost:8080
+      # cert-file: "{{ cfssl_certs_dir }}/localhost.pem"
+      # key-file: "{{ cfssl_certs_dir }}/localhost-key.pem"
+      # trusted-ca-file: "{{ cfssl_ca_root_dir }}/ca.pem"
       dashboard-host: "[::]"
       dashboard-port: 3000
       dashboard-cert-file: "{{ cfssl_certs_dir }}/localhost.pem"
