@@ -7,6 +7,14 @@ certs_dir = case os[:family]
               "/etc/ssl/certs"
             end
 
+ca_cert = "#{certs_dir}/../ca.pem"
+# XXX 8080 (API) and 8081 (agent communication) cannot be enabled
+ports_http = [
+  2379, 2380, # etcd
+  3000        # Web UI
+]
+ports_unknown = [8081]
+
 describe file certs_dir do
   it { should exist }
   it { should be_directory }
@@ -18,13 +26,12 @@ describe file "#{certs_dir}/localhost.pem" do
   its(:content) { should match(/-----BEGIN CERTIFICATE-----/) }
 end
 
-describe command "(echo 'GET / HTTP/1.0'; echo; sleep 1) | openssl s_client -host localhost -port 3000 -servername localhost -CAfile #{certs_dir}/../ca.pem -showcerts" do
-  its(:exit_status) { should eq 0 }
-  its(:stdout) { should match(/issuer=CN = Sensu Test CA/) }
-  its(:stdout) { should match(/subject=CN = localhost/) }
-  its(:stdout) { should match(/Protocol\s+:\s+TLSv1\.3/) }
-  its(:stdout) { should match(%r{HTTP/1\.0 200 OK}) }
-
-  # fail if the cert is signed with profile agent
-  its(:stdout) { should_not match(/unsupported certificate purpose/) }
+ports_http.each do |port|
+  describe command "(echo 'GET / HTTP/1.0'; echo; sleep 1) | openssl s_client -connect 127.0.0.1:#{port} -servername 127.0.0.1 -CAfile #{ca_cert}" do
+    its(:exit_status) { should eq 0 }
+    its(:stdout) { should match(/issuer=CN = Sensu Test CA/) }
+    its(:stdout) { should match(/subject=CN = localhost/) }
+    its(:stdout) { should match(/-----BEGIN CERTIFICATE-----/) }
+    its(:stdout) { should match(%r{HTTP/1\.0 \d{3}}) }
+  end
 end
