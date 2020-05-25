@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: https://github.com/trombik/kitchen-ansible
-  revision: 43e56aa5d6f5c9c0686843bfccec339681b38e18
+  revision: e21048706afb34e0f79504376f0dca9af7ae6710
   branch: collections
   specs:
     kitchen-ansible (0.50.1)
@@ -39,7 +39,7 @@ GEM
     ast (2.4.0)
     bcrypt_pbkdf (1.0.1)
     builder (3.2.4)
-    capybara (3.32.1)
+    capybara (3.32.2)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -159,7 +159,7 @@ GEM
       unicode-display_width (~> 1.5)
       unicode_utils (~> 1.4)
     strings-ansi (0.2.0)
-    test-kitchen (2.5.0)
+    test-kitchen (2.5.1)
       bcrypt_pbkdf (~> 1.0)
       ed25519 (~> 1.2)
       license-acceptance (~> 1.0, >= 1.0.11)
@@ -191,7 +191,7 @@ GEM
     tty-screen (0.7.1)
     unicode-display_width (1.7.0)
     unicode_utils (1.4.0)
-    websocket-driver (0.7.1)
+    websocket-driver (0.7.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
     winrm (2.3.4)
