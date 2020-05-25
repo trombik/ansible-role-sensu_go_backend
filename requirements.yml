@@ -5,5 +5,6 @@ roles:
   - name: trombik.redhat_repo
   - name: trombik.sensu_go_agent
   - name: trombik.language_ruby
+  - name: trombik.cfssl
 collections:
   - name: sensu.sensu_go

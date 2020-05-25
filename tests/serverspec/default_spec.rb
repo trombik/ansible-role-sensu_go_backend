@@ -16,7 +16,6 @@ admin_password = "P@ssw0rd!"
 default_group = "root"
 extra_packages = []
 gems = %w[sensu-handlers-elasticsearch]
-
 case os[:family]
 when "redhat"
   package = "sensu-go-backend"
@@ -26,7 +25,7 @@ when "ubuntu"
   extra_packages = ["sensu-go-cli"]
 when "freebsd"
   package = "sysutils/sensu-go-backend"
-  config = "/usr/local/etc/sensu-backend.yml"
+  config = "/usr/local/etc/sensu/backend.yml"
   db_dir = "/var/db/sensu/sensu-backend"
   state_dir = "/var/db/sensu/sensu-backend"
   default_group = "wheel"
