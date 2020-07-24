@@ -146,8 +146,6 @@
     password: "{{ item['user']['password'] | default(omit) }}"
     state: "{{ item['user']['state'] | default(omit) }}"
   with_items: "{{ sensu_go_backend_users }}"
-  register: __sensu_go_backend_users_result
-  changed_when: __sensu_go_backend_users_result['changed'] and not sensu_go_backend_users_ignore_changed
 
 - name: Configure sensu_go_backend_roles
   sensu.sensu_go.role:

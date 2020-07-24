@@ -197,8 +197,6 @@
                 - roles
                 - searches
                 - silenced
-    # XXX see https://github.com/sensu/sensu-go-ansible/issues/183
-    sensu_go_backend_users_ignore_changed: yes
     sensu_go_backend_users:
       - user:
           name: readonly-user

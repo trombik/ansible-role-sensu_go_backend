@@ -43,6 +43,7 @@ Ruby must be installed.
 | `sensu_go_backend_home` | home directory of `sensu-backend` | `/home/{{ sensu_go_backend_user }}` |
 | `sensu_go_backend_package` | package name of `sensu-backend` | `{{ __sensu_go_backend_package }}` |
 | `sensu_go_backend_extra_packages` | list of extra packages to install | `{{ __sensu_go_backend_extra_packages }}` |
+| `sensu_go_backend_extra_python_packages` | list of extra python packages to install | `{{ __sensu_go_backend_extra_python_packages }}` |
 | `sensu_go_backend_log_dir` | path to log directory | `/var/log/sensu` |
 | `sensu_go_backend_state_dir` | path to `state-dir` | `{{ __sensu_go_backend_state_dir }}` |
 | `sensu_go_backend_cache_dir` | path of `cache-dir` | `{{ __sensu_go_backend_cache_dir }}` |
@@ -271,6 +272,7 @@ does depends on platform.
 | `__sensu_go_backend_conf_dir` | `/etc/sensu` |
 | `__sensu_go_backend_conf_file` | `{{ __sensu_go_backend_conf_dir }}/backend.yml` |
 | `__sensu_go_backend_config_dir` | `/etc/sensu/conf.d` |
+| `__sensu_go_backend_extra_python_packages` | `["python-bcrypt"]` |
 
 ## FreeBSD
 
@@ -283,9 +285,10 @@ does depends on platform.
 | `__sensu_go_backend_state_dir` | `/var/db/sensu/sensu-backend` |
 | `__sensu_go_backend_cache_dir` | `/var/cache/sensu/sensu-backend` |
 | `__sensu_go_backend_service` | `sensu-backend` |
-| `__sensu_go_backend_conf_dir` | `/usr/local/etc` |
-| `__sensu_go_backend_conf_file` | `{{ __sensu_go_backend_conf_dir }}/sensu-backend.yml` |
+| `__sensu_go_backend_conf_dir` | `/usr/local/etc/sensu` |
+| `__sensu_go_backend_conf_file` | `{{ __sensu_go_backend_conf_dir }}/backend.yml` |
 | `__sensu_go_backend_config_dir` | `/usr/local/etc/sensu/conf.d` |
+| `__sensu_go_backend_extra_python_packages` | `["security/py-bcrypt"]` |
 
 ## RedHat
 
@@ -301,6 +304,7 @@ does depends on platform.
 | `__sensu_go_backend_conf_dir` | `/etc/sensu` |
 | `__sensu_go_backend_conf_file` | `{{ __sensu_go_backend_conf_dir }}/backend.yml` |
 | `__sensu_go_backend_config_dir` | `/etc/sensu/conf.d` |
+| `__sensu_go_backend_extra_python_packages` | `["py-bcrypt"]` |
 
 # Dependencies
 
