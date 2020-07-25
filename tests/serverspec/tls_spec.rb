@@ -1,6 +1,7 @@
 require "spec_helper"
 require "serverspec"
 
+# rubocop:disable Style/GlobalVars
 $BACKEND_URL = "https://localhost:8080"
 certs_dir = case os[:family]
             when "freebsd"
@@ -9,6 +10,8 @@ certs_dir = case os[:family]
               "/etc/ssl/certs"
             end
 $CA_CERT = "#{certs_dir}/../ca.pem"
+ca_cert = $CA_CERT
+# rubocop:enable Style/GlobalVars
 
 require_relative "common_spec"
 
@@ -31,7 +34,7 @@ describe file "#{certs_dir}/localhost.pem" do
 end
 
 ports_http.each do |port|
-  describe command "(echo 'GET / HTTP/1.0'; echo; sleep 1) | openssl s_client -connect 127.0.0.1:#{port} -servername localhost -CAfile #{$CA_CERT}" do
+  describe command "(echo 'GET / HTTP/1.0'; echo; sleep 1) | openssl s_client -connect 127.0.0.1:#{port} -servername localhost -CAfile #{ca_cert}" do
     its(:exit_status) { should eq 0 }
     its(:stdout) { should match(/issuer=CN = Sensu Test CA/) }
     its(:stdout) { should match(/subject=CN = localhost/) }

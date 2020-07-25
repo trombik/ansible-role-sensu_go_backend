@@ -111,7 +111,9 @@ ports.each do |p|
   end
 end
 
-describe command("sensuctl configure -n --url #{$BACKEND_URL} --username #{Shellwords.escape(admin_user)} --password #{Shellwords.escape(admin_password)} --trusted-ca-file #{$CA_CERT} --format yaml") do
+# rubocop:disable Style/GlobalVars
+describe command("sensuctl configure -n --url #{$BACKEND_URL} --username #{Shellwords.escape(admin_user)} --password #{Shellwords.escape(admin_password)} --trusted-ca-file #{Shellwords.escape($CA_CERT)} --format yaml") do
+  # rubocop:enable Style/GlobalVars
   before(:all) do
     Specinfra.backend.run_command("rm -rf /root/.config/sensu")
   end
@@ -271,4 +273,3 @@ describe file "#{conf_dir}/template_file.erb" do
   it { should be_grouped_into default_group }
   its(:content) { should match(/foo/) }
 end
-
