@@ -1,15 +1,20 @@
-require_relative "default_spec"
+require "spec_helper"
+require "serverspec"
 
+$BACKEND_URL = "https://localhost:8080"
 certs_dir = case os[:family]
             when "freebsd"
               "/usr/local/etc/ssl/certs"
             else
               "/etc/ssl/certs"
             end
+$CA_CERT = "#{certs_dir}/../ca.pem"
 
-ca_cert = "#{certs_dir}/../ca.pem"
-# XXX 8080 (API) and 8081 (agent communication) cannot be enabled
+require_relative "common_spec"
+
 ports_http = [
+  8080,       # API
+  8081,       # agent
   2379, 2380, # etcd
   3000        # Web UI
 ]
@@ -26,7 +31,7 @@ describe file "#{certs_dir}/localhost.pem" do
 end
 
 ports_http.each do |port|
-  describe command "(echo 'GET / HTTP/1.0'; echo; sleep 1) | openssl s_client -connect 127.0.0.1:#{port} -servername 127.0.0.1 -CAfile #{ca_cert}" do
+  describe command "(echo 'GET / HTTP/1.0'; echo; sleep 1) | openssl s_client -connect 127.0.0.1:#{port} -servername localhost -CAfile #{$CA_CERT}" do
     its(:exit_status) { should eq 0 }
     its(:stdout) { should match(/issuer=CN = Sensu Test CA/) }
     its(:stdout) { should match(/subject=CN = localhost/) }

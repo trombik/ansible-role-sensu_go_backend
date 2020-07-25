@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   roles:
+    - role: trombik.hosts
     - role: trombik.freebsd_pkg_repo
       when: ansible_os_family == 'FreeBSD'
     - role: trombik.apt_repo
@@ -14,6 +15,7 @@
     - role: ansible-role-sensu_go_backend
   vars:
 
+    hosts_enable_ipv6: false
     # __________________________________________agent
     sensu_go_agent_config:
       backend-url: ws://localhost:8081

@@ -43,5 +43,7 @@ sensu_go_backend_ruby_plugins: []
 sensu_go_backend_config_dir: "{{ __sensu_go_backend_config_dir }}"
 sensu_go_backend_config_fragments: []
 sensu_go_backend_extra_config_files: []
-
-sensu_go_backend_users_ignore_changed: no
+sensu_go_backend_environment_var: {}
+sensu_go_backend_etcd_client_port: 2379
+sensu_go_backend_etcd_peer_port: 2380
+sensu_go_backend_agent_port: 8081

@@ -17,6 +17,19 @@ collections:
   - name: sensu.sensu_go
 ```
 
+The role requires `sensu.sensu_go` version 1.5.0, which is not yet released
+(as of 2020-07-25). Until then, use `git+https` in `src`.
+
+```yaml
+---
+# requirements.yml
+collections:
+  - name: sensu.sensu_go
+    src: git+https://github.com/sensu/sensu-go-ansible.git,v1.5.0
+    type: git
+```
+
+
 ```console
 > ansible-galaxy collection install -r requirements.yml -p collections
 ```
@@ -82,6 +95,12 @@ Ruby must be installed.
 | `sensu_go_backend_config_dir` | path to `sensu/conf.d` | `{{ __sensu_go_backend_config_dir }}` |
 | `sensu_go_backend_config_fragments` | see below | `[]` |
 | `sensu_go_backend_extra_config_files` | see below | `[]` |
+| `sensu_go_backend_environment_var` | a dict of environment variables. see below | `{}` |
+| `sensu_go_backend_etcd_client_port` | the default port of `etcd-listen-client-urls`. the role does not use it. reference purpose only. | `2379` |
+| `sensu_go_backend_etcd_peer_port` | the default port of
+`etcd-initial-advertise-peer-urls` and `etcd-initial-cluster`. the role does not use it. reference purpose only | `2380` |
+| `sensu_go_backend_agent_port` | the default port of `backend-url`. the role
+does not use it. reference purpose only | `8081` |
 
 ## `sensu_go_backend_assets`
 
@@ -240,6 +259,19 @@ This variable is a list of dict.
 | `name` | name of extra configuration file. | yes |
 | `content` | content of the file | no |
 | `state` | state of the file, either `present` or `absent` | no |
+
+## `sensu_go_backend_environment_var`
+
+This variable is a dict of environment variables to set when interacting with
+the backend with `sense-go` `ansible` collection. The key is name of the
+variable, and the value is the value of the variable. You would like to set
+the following environment variables so that you do not have to set `auth`
+attribute every time you define `sensu-go` resources.
+
+- `SENSU_URL`
+- `SENSU_USER`
+- `SENSU_PASSWORD`
+- `SENSU_CA_PATH`
 
 ## `sensu_go_backend_flags`
 
