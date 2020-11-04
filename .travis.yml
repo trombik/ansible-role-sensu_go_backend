@@ -1,6 +1,6 @@
 ---
 os: linux
-dist: bionic
+dist: focal
 language: python
 python: "3.6"
 
@@ -9,17 +9,8 @@ addons:
   apt:
     update: true
     packages:
-      - python-pip
+      - python3-pip
       - curl
-      - bridge-utils
-      - dnsmasq-base
-      - ebtables
-      - libvirt-bin
-      - libvirt-dev
-      - qemu-kvm
-      - qemu-utils
-      - ruby-dev
-      - jq
 cache:
   directories:
     - $HOME/.rvm/
@@ -45,10 +36,6 @@ before_install:
   - sudo dpkg -i vagrant_2.2.9_x86_64.deb
   - vagrant --version
 
-  # for libvirt
-  - vagrant plugin install vagrant-libvirt
-  - sudo chmod go+rw /var/run/libvirt/libvirt-sock
-
   # for virtualbox
   - sudo apt-get install "linux-headers-`uname -r`"
   - wget -q https://github.com/trombik/ansible-role-sensu_go_backend/releases/download/1.4.0/oracle_vbox_2016.asc -O - | sudo apt-key add -
@@ -57,8 +44,9 @@ before_install:
   - sudo apt-get install virtualbox-6.1
 
 install:
-  # Install ansible
-  - pip install ansible yamllint molecule docker
+  # Install ansible 2.9 because 2.10 changed its options, ignores "src" in
+  # requirements.yml.
+  - pip install 'ansible<2.10' yamllint molecule docker
 
   # Check versions
   - ansible --version
@@ -115,7 +103,7 @@ script:
   - yamllint -c .yamllint.yml .
 
   # run the QA test
-  #  - qansible qa
+  - qansible qa
   - export VAGRANT_PROVIDER=virtualbox
   - bundle exec kitchen list
   - |
